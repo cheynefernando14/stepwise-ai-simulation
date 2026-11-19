@@ -15,22 +15,22 @@
   <p class="note">Simulated demonstration. The flooring, sensor, ESP32 and LoRa link are proposed hardware shown conceptually; nothing physical is connected. Values are shared with the website dashboard through this browser.</p>
 
   <section class="card scene-card">
-    <svg id="scene" viewBox="0 0 940 440" role="img" aria-label="Pedestrians walk over kinetic tiles, energy flows to a storage unit that powers a smart bin, and bin data is sent to a central monitor.">
+    <svg id="scene" viewBox="0 170 940 270" role="img" aria-label="Pedestrians walk over kinetic tiles, energy flows to a storage unit that powers a smart bin, and bin data is sent to a central monitor.">
       <rect width="940" height="300" fill="#eaf2f8"/>
       <rect y="300" width="940" height="140" fill="#d5dde4"/>
-      <rect x="20" y="312" width="410" height="66" fill="#c3ced8" stroke="#6b7c8c" stroke-dasharray="4 3"/>
+      <rect x="20" y="312" width="380" height="66" fill="#c3ced8" stroke="#6b7c8c" stroke-dasharray="4 3"/>
       <g id="under"></g><g id="tiles"></g>
-      <text class="lbl" x="30" y="228">Kinetic floor tiles (proposed)</text>
+      <text class="lbl" x="30" y="228">1. Kinetic floor tiles (proposed)</text>
       <text class="lbl" x="30" y="398">Underfloor mechanism (conceptual cutaway)</text>
       <g id="people"></g>
 
-      <rect x="410" y="320" width="130" height="68" rx="6" fill="#0f2338"/>
+      <rect x="410" y="320" width="150" height="68" rx="6" fill="#0f2338"/>
       <text class="lw" x="420" y="338">Harvester + regulator</text>
-      <rect x="420" y="348" width="110" height="14" fill="none" stroke="#7fd6e6"/>
-      <rect id="cap" x="420" y="348" width="0" height="14" fill="#22b8cf"/>
-      <text class="lw" x="420" y="378">Supercapacitor</text>
-      <text class="lbl" x="410" y="312">Energy management unit</text>
-      <path d="M540,378 V395 H700 V246" fill="none" stroke="#c98a00" stroke-width="1.5"/>
+      <rect x="420" y="346" width="130" height="14" fill="none" stroke="#7fd6e6"/>
+      <rect id="cap" x="420" y="346" width="0" height="14" fill="#22b8cf"/>
+      <text class="lw" x="420" y="378">Supercapacitor (storage)</text>
+      <text class="lbl" x="410" y="312">2. Energy management unit</text>
+      <path d="M560,378 V395 H700 V246" fill="none" stroke="#c98a00" stroke-width="1.5"/>
 
       <rect x="580" y="200" width="80" height="160" rx="6" fill="#fff" fill-opacity=".55" stroke="#0f2338" stroke-width="2"/>
       <rect id="waste" x="584" y="360" width="72" height="0" fill="#8a6d4b"/>
@@ -40,7 +40,7 @@
       <rect x="610" y="204" width="20" height="8" rx="2" fill="#22b8cf"/>
       <circle id="ping" cx="620" cy="212" r="4" fill="#0f2338" opacity="0"/>
       <text class="lbl" x="572" y="216" text-anchor="end">Ultrasonic sensor</text>
-      <text class="lbl" id="binLabel" x="620" y="378" text-anchor="middle">Smart bin (cutaway)</text>
+      <text class="lbl" id="binLabel" x="620" y="420" text-anchor="middle">3. Smart bin (cutaway)</text>
 
       <line x1="630" y1="208" x2="664" y2="208" stroke="#22b8cf" stroke-width="1.5"/>
       <rect x="664" y="206" width="76" height="40" rx="4" fill="#0f2338"/>
@@ -52,7 +52,8 @@
       <rect x="800" y="190" width="120" height="76" rx="6" fill="#0f2338"/>
       <text class="lw" x="860" y="210" text-anchor="middle">StepWise AI</text>
       <text class="lw" id="mon" x="860" y="234" text-anchor="middle">Waiting for data</text>
-      <text class="lbl" x="860" y="182" text-anchor="middle">Central monitor</text>
+      <text class="lbl" x="860" y="182" text-anchor="middle">4. Central monitor</text>
+      <text class="lbl" x="745" y="282">Wireless data (simulated)</text>
       <circle id="packet" cx="740" cy="226" r="5" fill="#1f9d6b" opacity="0"/>
       <g id="pulses"></g>
     </svg>
