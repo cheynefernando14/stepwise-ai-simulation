@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StepWise AI | Live simulation</title>
+<link rel="stylesheet" href="sim.css">
+</head>
+<body>
+<header class="top">
+  <strong>StepWise AI</strong><span>Live simulation of the proposed system</span>
+  <a href="index.html">Open website dashboard</a>
+</header>
+<main>
+  <p class="note">Simulated demonstration. The flooring, sensor, ESP32 and LoRa link are proposed hardware shown conceptually; nothing physical is connected. Values are shared with the website dashboard through this browser.</p>
+
+  <section class="card scene-card">
+    <svg id="scene" viewBox="0 0 940 440" role="img" aria-label="Pedestrians walk over kinetic tiles, energy flows to a storage unit that powers a smart bin, and bin data is sent to a central monitor.">
+      <rect width="940" height="300" fill="#eaf2f8"/>
+      <rect y="300" width="940" height="140" fill="#d5dde4"/>
+      <rect x="20" y="312" width="410" height="66" fill="#c3ced8" stroke="#6b7c8c" stroke-dasharray="4 3"/>
+      <g id="under"></g><g id="tiles"></g>
+      <text class="lbl" x="30" y="228">Kinetic floor tiles (proposed)</text>
+      <text class="lbl" x="30" y="398">Underfloor mechanism (conceptual cutaway)</text>
+      <g id="people"></g>
+
+      <rect x="410" y="320" width="130" height="68" rx="6" fill="#0f2338"/>
+      <text class="lw" x="420" y="338">Harvester + regulator</text>
+      <rect x="420" y="348" width="110" height="14" fill="none" stroke="#7fd6e6"/>
+      <rect id="cap" x="420" y="348" width="0" height="14" fill="#22b8cf"/>
+      <text class="lw" x="420" y="378">Supercapacitor</text>
+      <text class="lbl" x="410" y="312">Energy management unit</text>
+      <path d="M540,378 V395 H700 V246" fill="none" stroke="#c98a00" stroke-width="1.5"/>
+
+      <rect x="580" y="200" width="80" height="160" rx="6" fill="#fff" fill-opacity=".55" stroke="#0f2338" stroke-width="2"/>
+      <rect id="waste" x="584" y="360" width="72" height="0" fill="#8a6d4b"/>
+      <rect x="574" y="190" width="92" height="10" rx="3" fill="#0f2338"/>
+      <circle id="led" cx="620" cy="195" r="4" fill="#1f9d6b"/>
+      <line id="beam" x1="620" y1="212" x2="620" y2="360" stroke="#22b8cf" stroke-dasharray="3 3"/>
+      <rect x="610" y="204" width="20" height="8" rx="2" fill="#22b8cf"/>
+      <circle id="ping" cx="620" cy="212" r="4" fill="#0f2338" opacity="0"/>
+      <text class="lbl" x="572" y="216" text-anchor="end">Ultrasonic sensor</text>
+      <text class="lbl" id="binLabel" x="620" y="378" text-anchor="middle">Smart bin (cutaway)</text>
+
+      <line x1="630" y1="208" x2="664" y2="208" stroke="#22b8cf" stroke-width="1.5"/>
+      <rect x="664" y="206" width="76" height="40" rx="4" fill="#0f2338"/>
+      <text class="lw" x="702" y="223" text-anchor="middle">ESP32</text>
+      <text class="lw" x="702" y="238" text-anchor="middle">+ LoRa</text>
+      <g id="waves" opacity="0" fill="none" stroke="#22b8cf" stroke-width="2">
+        <path d="M752,214 q8,12 0,24"/><path d="M764,208 q13,18 0,36"/><path d="M776,202 q18,24 0,48"/>
+      </g>
+      <rect x="800" y="190" width="120" height="76" rx="6" fill="#0f2338"/>
+      <text class="lw" x="860" y="210" text-anchor="middle">StepWise AI</text>
+      <text class="lw" id="mon" x="860" y="234" text-anchor="middle">Waiting for data</text>
+      <text class="lbl" x="860" y="182" text-anchor="middle">Central monitor</text>
+      <circle id="packet" cx="740" cy="226" r="5" fill="#1f9d6b" opacity="0"/>
+      <g id="pulses"></g>
+    </svg>
+    <div id="toast" role="status"></div>
+  </section>
+
+  <div class="cols">
+    <section class="card">
+      <h2>Controls</h2>
+      <h3>Pedestrians</h3>
+      <div class="row">
+        <button data-act="walk" id="walkBtn">Pause walking</button>
+        <button data-act="less">Fewer people</button>
+        <button data-act="more">More people</button>
+      </div>
+      <div class="row">
+        <input type="number" id="n" value="500" min="1" aria-label="Footsteps to simulate">
+        <button data-act="steps">Simulate footsteps</button>
+        <button data-act="resetSteps">Reset footsteps</button>
+      </div>
+      <h3>Energy</h3>
+      <div class="row"><button data-act="resetEnergy">Reset energy storage</button></div>
+      <h3>Selected smart bin</h3>
+      <div class="row">
+        <button data-act="remove">Remove waste</button>
+        <button data-act="add">Add waste</button>
+        <button data-act="empty">Empty bin</button>
+      </div>
+      <label class="slide">Fill level <input type="range" id="fill" min="0" max="100" value="0"></label>
+      <div class="row">
+        <button class="go" data-act="measure">Measure fill level</button>
+        <button class="go" data-act="send">Transmit bin data</button>
+      </div>
+      <h3>System</h3>
+      <div class="row">
+        <button data-act="pause" id="pauseBtn">Pause simulation</button>
+        <button data-act="reset">Reset everything</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>System readings</h2>
+      <dl>
+        <dt>Total footsteps</dt><dd id="steps">0</dd>
+        <dt>Raw energy (5 mJ per step)</dt><dd id="raw">0</dd>
+        <dt>Usable energy (70% efficiency)</dt><dd id="usable">0</dd>
+        <dt>Stored energy</dt><dd id="stored">0</dd>
+        <dt>Consumed by smart bin</dt><dd id="used">0</dd>
+        <dt>Overflow (storage full)</dt><dd id="over">0</dd>
+        <dt>Energy advice</dt><dd id="advice"></dd>
+        <dt>Selected bin</dt><dd id="binInfo"></dd>
+        <dt>Fill level and status</dt><dd id="fillInfo"></dd>
+        <dt>Sensor distance (live)</dt><dd id="dist"></dd>
+        <dt>Last measurement</dt><dd id="meas"></dd>
+        <dt>Last transmission</dt><dd id="sent"></dd>
+      </dl>
+    </section>
+  </div>
+
+  <div class="cols">
+    <section class="card">
+      <h2>Smart bins (select one)</h2>
+      <div id="binList"></div>
+    </section>
+    <section class="card">
+      <h2>Collection priority (simulated)</h2>
+      <ol id="plan"></ol>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Simulated packet from the last transmission</h2>
+    <pre id="json"></pre>
+  </section>
+</main>
+<script src="shared.js"></script>
+<script src="sim.js"></script>
+</body>
+</html>
