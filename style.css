@@ -1,0 +1,39 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #eef3f7; color: #0f2338; line-height: 1.45; }
+.top { display: flex; align-items: center; gap: 14px; background: #0f2338; color: #fff; padding: 14px 24px; }
+.top span { color: #9fb3c8; flex: 1; }
+.top a { color: #7fd6e6; }
+main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+.note { font-size: 13px; color: #4b5d70; margin-bottom: 14px; }
+.card { background: #fff; border-radius: 12px; padding: 18px; box-shadow: 0 2px 10px rgba(15,35,56,.06); margin-bottom: 16px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+h2 { font-size: 17px; margin-bottom: 10px; }
+h3 { font-size: 13px; color: #4b5d70; margin: 12px 0 6px; }
+.scene-card { position: relative; padding: 8px; }
+svg { width: 100%; height: auto; display: block; }
+.lbl { font-size: 12px; fill: #0f2338; }
+.lw { font-size: 12px; fill: #fff; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+button { background: #e3ebf3; color: #0f2338; border: 0; border-radius: 7px; padding: 9px 13px; cursor: pointer; font-size: 13px; }
+button:hover { background: #d3dfeb; }
+button.go { background: #1f9d6b; color: #fff; }
+button.go:hover { background: #17805a; }
+input[type=number] { width: 110px; padding: 8px; border: 1px solid #c8d3de; border-radius: 7px; }
+.slide { display: flex; gap: 10px; align-items: center; font-size: 13px; margin: 6px 0 10px; }
+.slide input { flex: 1; }
+:focus-visible { outline: 2px solid #1f9d6b; outline-offset: 2px; }
+dl { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6px 12px; font-size: 13px; }
+dt { color: #4b5d70; }
+dd { font-weight: bold; word-break: break-word; }
+#toast { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: #0f2338; color: #fff; padding: 9px 16px; border-radius: 8px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+#toast.on { opacity: 1; }
+#toast.warn { background: #c92a2a; }
+.binrow { display: grid; grid-template-columns: 1.2fr 1fr 60px; gap: 10px; align-items: center; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+.binrow:hover, .binrow.sel { background: #e8f1f8; }
+.bar { height: 8px; background: #dbe4ec; border-radius: 4px; overflow: hidden; }
+.bar i { display: block; height: 100%; }
+ol { padding-left: 20px; font-size: 13px; }
+ol li { margin-bottom: 8px; }
+ol button { margin-left: 8px; padding: 4px 9px; }
+pre { font-size: 12px; background: #0f2338; color: #bfe9f2; padding: 12px; border-radius: 8px; overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
