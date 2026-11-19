@@ -9,7 +9,7 @@ const el = (tag, attrs, parent) => {
 const COL = { Normal: "#1f9d6b", Monitor: "#e0a800", Planned: "#f08c00", High: "#d9480f", Immediate: "#c92a2a" };
 const FLOOR = 300, tileX = i => 30 + i * 60;
 const TO_UNIT = i => [[tileX(i) + 27, 364], [tileX(i) + 27, 370], [410, 370]];  // tile to energy unit
-const TO_BIN = [[540, 378], [540, 395], [700, 395], [700, 246]];                // energy unit to smart bin
+const TO_BIN = [[560, 378], [560, 395], [700, 395], [700, 246]];                // energy unit to smart bin
 
 let sel = 2, walking = true, paused = false, crowd = 3, pending = 0, flushT = 0, beam = null, tx = null;
 let last = performance.now();
@@ -120,11 +120,11 @@ function render() {
     $("json").textContent = s.packet ? JSON.stringify(s.packet, null, 2) : "No packet yet.";
     if (!tx) set("mon", s.packet ? `${s.packet.bin_id}: ${s.packet.fill_level_percent}%` : "Waiting for data");
 
-    $("cap").setAttribute("width", Math.min(100, pct) * 1.1);
+    $("cap").setAttribute("width", Math.min(100, pct) * 1.3);
     $("waste").setAttribute("y", 360 - b.fill * 1.5); $("waste").setAttribute("height", b.fill * 1.5);
     $("beam").setAttribute("y2", 360 - b.fill * 1.5);
     $("led").setAttribute("fill", COL[st]);
-    set("binLabel", `${b.id} ${b.location} (cutaway)`);
+    set("binLabel", `3. Smart bin: ${b.id} ${b.location}`);
     if (document.activeElement !== $("fill")) $("fill").value = b.fill;
 
     $("binList").innerHTML = s.bins.map((x, i) => `
